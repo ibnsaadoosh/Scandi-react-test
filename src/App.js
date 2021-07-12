@@ -1,25 +1,27 @@
-import logo from './logo.svg';
+import React, { Component} from 'react';
+import {Query} from '@apollo/client/react/components';
 import './App.css';
+import {ApolloProvider, ApolloClient, HttpLink, from, InMemoryCache} from '@apollo/client';
+import Category from './Components/Category';
+// import LoadProducts  from './GraphQL/Queries';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+const client = new ApolloClient({
+  uri: "http://localhost:4000/",
+  cache: new InMemoryCache()
+});
+
+class App extends Component 
+{
+  render()
+  {
+    return (
+      <ApolloProvider client={client}>
+        <div className="App">
+          <Category />
+        </div>
+      </ApolloProvider>
+    );
+  }
 }
 
 export default App;
